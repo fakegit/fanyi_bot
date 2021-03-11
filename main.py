@@ -395,6 +395,7 @@ async def inline(inline_query: InlineQuery):
         zh_str = translate_text(text, 'zh')
         en_str = translate_text(text, 'en')
         jp_str = translate_text(text, 'ja')
+        pt_str = translate_text(text, 'pt')
         items = [
             InlineQueryResultArticle(
                 id=0,
@@ -419,6 +420,14 @@ async def inline(inline_query: InlineQuery):
                 thumb_width=0,
                 input_message_content=InputTextMessageContent(
                     f'{jp_str}{end_str}', disable_web_page_preview=True),
+            ),
+            InlineQueryResultArticle(
+                id=3,
+                title=f'{pt_str}'.strip(),
+                description='🇵🇹 Português',
+                thumb_width=0,
+                input_message_content=InputTextMessageContent(
+                    f'{pt_str}{end_str}', disable_web_page_preview=True),
             )
         ]
         await bot.answer_inline_query(inline_query.id,

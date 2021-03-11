@@ -54,6 +54,8 @@ def trans(text, lang='zh-CN', detect=1):
         result = get_trans(text, lang_tgt='ja')
     elif lang == 'vi':
         result = get_trans(text, lang_tgt='vi')
+    elif lang == 'pt':
+        result = get_trans(text, lang_tgt='pt')
     else:
         if get_lang(text)[0] == 'zh-CN':
             result = get_trans(text, lang_tgt='zh-CN') + '\n' \
