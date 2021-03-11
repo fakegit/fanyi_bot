@@ -395,10 +395,7 @@ async def inline(inline_query: InlineQuery):
         zh_str = translate_text(text, 'zh')
         en_str = translate_text(text, 'en')
         jp_str = translate_text(text, 'ja')
-<<<<<<< HEAD
         pt_str = translate_text(text, 'pt')
-=======
->>>>>>> ba7c48ab6ebc951069e909751025729ee74925a0
         items = [
             InlineQueryResultArticle(
                 id=0,

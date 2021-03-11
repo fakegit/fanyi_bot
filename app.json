@@ -1,7 +1,7 @@
 {
 	"name": "bot",
 	"cwd": "/root/bot/",
-	"script": "main.py",
+	"script": "start.py",
 	"interpreter": "python3",
 	"instances": 1,
 	"autorestart": true,
