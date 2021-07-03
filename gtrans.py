@@ -69,26 +69,28 @@ def trans(text, lang='zh-CN', detect=1):
 def trans_auto(text):
     text = clean_text(text)
     tr = google_translator()
-    if get_lang(text)[0] == 'zh-CN':
-        result = get_trans(text, lang_tgt='en')
-    elif get_lang(text)[0] == 'en':
-        result = get_trans(text, lang_tgt='zh-CN')
+    lang = get_lang(text)[0]
+    if lang == '语言检测失败':
+        return '语言检测失败'
     else:
-        result = get_trans(text, lang_tgt='zh-CN') + '\n\n' + get_trans(
-            text, lang_tgt='en')
-    return result
+        if  lang== 'zh-CN':
+            result = get_trans(text, lang_tgt='en')
+        elif lang == 'en':
+            result = get_trans(text, lang_tgt='zh-CN')
+        else:
+            result = get_trans(text, lang_tgt='zh-CN') + '\n\n' + get_trans(
+                text, lang_tgt='en')
+        return result
 
 
 def get_lang(text):
-    translator = google_translator()
-    lang = None
-    while lang == None:
-        try:
-            lang = translator.detect(text)
-        except:
-            translator = Translator()
-            sleep(0.1)
-            pass
+    detector = google_translator()
+    try:
+        lang = detector.detect(text)
+        print(lang)
+    except Exception as e:
+        lang = ['语言检测失败']
+        sleep(0.5)
     return lang
 
 
@@ -104,7 +106,7 @@ def get_trans(text, **kwargs):
         except Exception as e:
             cprint('API Error' + str(e), 'white', 'on_yellow')
             translator = google_translator()
-            sleep(0.1)
+            sleep(0.5)
             pass
     return result
 
@@ -112,5 +114,6 @@ def get_trans(text, **kwargs):
 # result = get_trans('hello',lang_tgt='ja')
 
 if __name__ == "__main__":
-    print('Please run main.py instead of me!')
+    # print('Please run main.py instead of me!')
+    print(trans_auto('测试'))
     pass
