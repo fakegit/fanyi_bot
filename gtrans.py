@@ -107,8 +107,13 @@ def get_trans(text, **kwargs) -> str:
             result = itrans(text, **kwargs)
         except Exception as e:
             cprint('API Error' + str(e), 'white', 'on_yellow')
+<<<<<<< HEAD
             # translator = google_translator()
             sleep(1)
+=======
+            translator = google_translator()
+            sleep(0.5)
+>>>>>>> e6d9bf68b0e02f33faca62373bf73935f79263ee
             pass
     return result
 
@@ -117,5 +122,9 @@ def get_trans(text, **kwargs) -> str:
 
 if __name__ == "__main__":
     # print('Please run main.py instead of me!')
+<<<<<<< HEAD
     print(get_trans('Test'))
+=======
+    print(trans_auto('测试'))
+>>>>>>> e6d9bf68b0e02f33faca62373bf73935f79263ee
     pass
