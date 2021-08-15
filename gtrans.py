@@ -6,7 +6,8 @@
 # @Version : 1.0.0
 
 import re
-from google_trans_new import google_translator
+from google_trans_new.google_trans_new import google_translator
+from itranslate import itranslate as itrans
 from termcolor import cprint
 from time import sleep
 
@@ -36,46 +37,48 @@ def big5(text):
         cprint('繁体', 'white', 'on_grey')
         result = True
     except Exception as e:
-        cprint('简体' + e, 'white', 'on_grey')
+        cprint('简体' + str(e), 'white', 'on_grey')
         result = False
     return result
 
 
 def trans(text, lang='zh-CN', detect=1):
     text = clean_text(text)
-    tr = google_translator()
+    # tr = google_translator()
     if lang == 'en':
-        result = get_trans(text, lang_tgt='en')
+        result = get_trans(text, to_lang='en')
     elif lang == 'zh':
-        result = get_trans(text, lang_tgt='zh-CN')
+        result = get_trans(text, to_lang='zh-CN')
     elif lang == 'ru':
-        result = get_trans(text, lang_tgt='ru')
+        result = get_trans(text, to_lang='ru')
     elif lang == 'ja':
-        result = get_trans(text, lang_tgt='ja')
+        result = get_trans(text, to_lang='ja')
     elif lang == 'vi':
-        result = get_trans(text, lang_tgt='vi')
+        result = get_trans(text, to_lang='vi')
     elif lang == 'pt':
-        result = get_trans(text, lang_tgt='pt')
+        result = get_trans(text, to_lang='pt')
     else:
-        if get_lang(text)[0] == 'zh-CN':
-            result = get_trans(text, lang_tgt='zh-CN') + '\n' \
-                + get_trans(text, lang_tgt='en')
-        else:
-            result = get_trans(text, lang_tgt='zh-CN') + '\n' \
-                + text
+        # if get_lang(text)[0] == 'zh-CN':
+        #     result = get_trans(text, to_lang='zh-CN') + '\n' \
+        #         + get_trans(text, to_lang='en')
+        # else:
+        result = get_trans(text, to_lang='zh-CN') + '\n' \
+            + text
     return result
 
 
 def trans_auto(text):
     text = clean_text(text)
-    tr = google_translator()
-    if get_lang(text)[0] == 'zh-CN':
-        result = get_trans(text, lang_tgt='en')
-    elif get_lang(text)[0] == 'en':
-        result = get_trans(text, lang_tgt='zh-CN')
-    else:
-        result = get_trans(text, lang_tgt='zh-CN') + '\n\n' + get_trans(
-            text, lang_tgt='en')
+    # tr = google_translator()
+    # if get_lang(text)[0] == 'zh-CN':
+    #     result = get_trans(text, to_lang='en')
+    # elif get_lang(text)[0] == 'en':
+    #     result = get_trans(text, to_lang='zh-CN')
+    # else:
+    #     result = get_trans(text, to_lang='zh-CN') + '\n\n' + get_trans(
+    #         text, to_lang='en')
+    # result = get_trans(text, to_lang='zh-CN') + '\n因故语言检测暂禁，如须译为英文请在文本前加入"英文 "。'
+    result = get_trans(text)
     return result
 
 
@@ -85,8 +88,9 @@ def get_lang(text):
     while lang == None:
         try:
             lang = translator.detect(text)
+            print(lang)
         except:
-            translator = Translator()
+            # translator = google_translator()
             sleep(0.1)
             pass
     return lang
@@ -95,22 +99,23 @@ def get_lang(text):
 # result = get_lang('hello')
 
 
-def get_trans(text, **kwargs):
-    translator = google_translator()
+def get_trans(text, **kwargs) -> str:
+    # translator = google_translator()
     result = None
     while result == None:
         try:
-            result = translator.translate(text, **kwargs)
+            result = itrans(text, **kwargs)
         except Exception as e:
             cprint('API Error' + str(e), 'white', 'on_yellow')
-            translator = google_translator()
-            sleep(0.1)
+            # translator = google_translator()
+            sleep(1)
             pass
     return result
 
 
-# result = get_trans('hello',lang_tgt='ja')
+# result = get_trans('hello',to_lang='ja')
 
 if __name__ == "__main__":
-    print('Please run main.py instead of me!')
+    # print('Please run main.py instead of me!')
+    print(get_trans('Test'))
     pass
