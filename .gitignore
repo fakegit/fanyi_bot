@@ -1,7 +1,12 @@
 config.ini
 *.pid
 settings.json
-.idea/
+.idea
+/cachedir/
+.vscode
+test
+log
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -18,7 +23,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -137,4 +141,3 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
-test.py
